@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mx.cetys.jorgepayan.myapplication.Controllers.MainActivity">
+
+    <Button
+        android:id="@+id/button_getPosts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Posts"
+        android:gravity="center"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="19dp" />
+
+    <TextView
+        android:id="@+id/text_view_getPosts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Posts"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/button_getPosts"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="-511dp" />
+
+    <Button
+        android:id="@+id/button_showPosts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Posts"
+        android:gravity="center"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_getPosts"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="19dp" />
+
+    <TextView
+        android:id="@+id/text_view_showPosts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Posts"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/button_showPosts"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="-511dp" />
+
+    <Button
+        android:id="@+id/button_getComments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comments"
+        android:gravity="center"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_showPosts"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="19dp" />
+
+    <TextView
+        android:id="@+id/text_view_getComments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Comments"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/button_getComments"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="-511dp" />
+
+    <Button
+        android:id="@+id/button_showComments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comments"
+        android:gravity="center"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_getComments"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="19dp" />
+
+    <TextView
+        android:id="@+id/text_view_showComments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Comments"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/button_showComments"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="-511dp" />
+
+</android.support.constraint.ConstraintLayout>
