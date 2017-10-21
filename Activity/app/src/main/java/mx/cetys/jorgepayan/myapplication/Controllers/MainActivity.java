@@ -18,6 +18,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_KEY = "Message";
     CommentHelper commentHelper;
     PostHelper postHelper;
+    Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         button_getPosts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                makeToast("Synchronizing posts...");
                 String postsURL = "http://jsonplaceholder.typicode.com/posts";
                 JsonArrayRequest postRequest = new JsonArrayRequest(
                     Request.Method.GET, postsURL, null,
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONArray response) {
                             try {
+                                System.out.println(response);
                                 postHelper.open();
                                 postHelper.clearTable();
                                 postHelper.close();
@@ -73,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                                             post.getTitle(), post.getBody());
                                     postHelper.close();
                                 }
+                                makeToast("Posts synchronized.");
                             }
                             catch (JSONException e) {
                                 e.printStackTrace();
@@ -97,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<Post> posts = postHelper.getPosts();
                 postHelper.close();
                 Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+                for(Post post : posts) {
+                    post.setComments(getPostComments(post.getId()));
+                }
                 intent.putExtra(EXTRA_KEY, posts);
                 startActivity(intent);
             }
@@ -105,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         button_getComments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                makeToast("Synchronizing comments...");
                 String commentsURL = "http://jsonplaceholder.typicode.com/comments";
                 JsonArrayRequest commentsRequest = new JsonArrayRequest(
                         Request.Method.GET, commentsURL, null,
@@ -123,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
                                                 comment.getName(), comment.getEmail(), comment.getBody());
                                         commentHelper.close();
                                     }
+                                    makeToast("Comments synchronized.");
                                 }
                                 catch (JSONException e) {
                                     e.printStackTrace();
@@ -151,5 +161,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void makeToast(String msg) {
+        Context context = getApplicationContext();
+        CharSequence text = msg;
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
+
+    private ArrayList<Comment> getPostComments(int postId) {
+        ArrayList<Comment> comments = new ArrayList<Comment>();
+        commentHelper = new CommentHelper(getApplicationContext());
+        comments = commentHelper.getCommentByPost(postId);
+        return comments;
     }
 }

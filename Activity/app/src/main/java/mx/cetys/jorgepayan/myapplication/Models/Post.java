@@ -6,21 +6,26 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 /**
  * Created by jorge.payan on 10/6/17.
  */
 
 public class Post implements Parcelable {
+//public class Post {
     private int userId;
     private int id;
     private String title;
     private String body;
+    private ArrayList<Comment> comments;
 
     public Post(int userId, int id, String title, String body) {
         this.userId = userId;
         this.id = id;
         this.title = title;
         this.body = body;
+        this.comments = new ArrayList<Comment>();
     }
 
     public Post(Parcel in) {
@@ -28,6 +33,7 @@ public class Post implements Parcelable {
         id = in.readInt();
         title = in.readString();
         body = in.readString();
+        comments = in.readArrayList(Comment.class.getClassLoader());
     }
 
     public Post(JSONObject jsonObject) {
@@ -36,6 +42,7 @@ public class Post implements Parcelable {
             this.id = jsonObject.getInt("id");
             this.title = jsonObject.getString("title");
             this.body = jsonObject.getString("body");
+            this.comments = new ArrayList<Comment>();
         }
         catch(JSONException e){
 
@@ -75,6 +82,14 @@ public class Post implements Parcelable {
         this.body = body;
     }
 
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<Comment> comments) {
+        this.comments = comments;
+    }
+
     public int describeContents() {
         return 0;
     }
@@ -85,17 +100,18 @@ public class Post implements Parcelable {
         dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(body);
+        dest.writeList(comments);
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         @Override
-        public Comment createFromParcel(Parcel in) {
-            return new Comment(in);
+        public Post createFromParcel(Parcel in) {
+            return new Post(in);
         }
 
         @Override
-        public Comment[] newArray(int size) {
-            return new Comment[size];
+        public Post[] newArray(int size) {
+            return new Post[size];
         }
     };
 }

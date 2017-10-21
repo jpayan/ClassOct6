@@ -63,6 +63,21 @@ public class CommentHelper {
         return comment;
     }
 
+    public ArrayList<Comment> getCommentByPost(int postId) {
+        ArrayList<Comment> comments = new ArrayList<>();
+        Cursor cursor = database.query(DBUtils.COMMENT_TABLE_NAME, COMMENT_TABLE_COLUMNS,
+                DBUtils.COMMENT_POST_ID + " = " + postId, null, null, null, null);
+
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            comments.add(parseComment(cursor));
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return comments;
+    }
+
     public void addComment(int postId, int id, String name, String email, String body) {
         ContentValues values = new ContentValues();
 

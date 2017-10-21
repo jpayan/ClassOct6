@@ -23,7 +23,7 @@ public class DBUtils extends SQLiteOpenHelper {
             POST_USER_ID + " integer not null, " +
             POST_ID + " integer not null, " +
             POST_TITLE + " text not null, " +
-            POST_BODY + " text not null" +
+            POST_BODY + " text not null, " +
         ")";
 
     public static final String COMMENT_TABLE_NAME = "COMMENT";
