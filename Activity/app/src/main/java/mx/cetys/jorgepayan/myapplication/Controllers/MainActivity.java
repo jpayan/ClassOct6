@@ -4,10 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -15,10 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_KEY = "Message";
     CommentHelper commentHelper;
     PostHelper postHelper;
-    Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,7 +168,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Comment> getPostComments(int postId) {
         ArrayList<Comment> comments = new ArrayList<Comment>();
         commentHelper = new CommentHelper(getApplicationContext());
+        commentHelper.open();
         comments = commentHelper.getCommentByPost(postId);
+        commentHelper.close();
         return comments;
     }
 }
